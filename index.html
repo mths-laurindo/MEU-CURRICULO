@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portifólio - Matheus Antunes Laurindo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #1e40af;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            
+            /* Light theme */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-color: #475569;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: all 0.3s ease;
+        }
+
+        .projects {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.project-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.project-card {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+  width: 250px;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+}
+
+.project-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Modal */
+.project-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.project-modal-content {
+  background: var(--bg-primary);
+  margin: 5% auto;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 600px;
+  text-align: center;
+  position: relative;
+}
+
+.project-modal-content img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.project-modal .close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem 2rem;
+            position: relative;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0 auto;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: absolute;
+            right: 2rem;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+        }
+
+        /* About Section */
+        .about {
+            background: var(--bg-secondary);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+.profile-photo {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: white;
+    margin: 0 auto;
+    box-shadow: var(--shadow);
+    position: relative; /* Adicione esta linha */
+    overflow: hidden; /* Adicione esta linha */
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 1rem;
+            position: relative;
+            background: transparent;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background: var(--primary-color);
+            border: 4px solid var(--bg-primary);
+            top: 2rem;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+
+        .timeline-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+    .company-logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+        background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: white;
+        flex-shrink: 0;
+        overflow: hidden; /* Adiciona esta linha */
+    }
+
+    .company-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* ou contain, dependendo do efeito desejado */
+    }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-date {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-preview {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Popup */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .popup-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .popup-content {
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Education & Courses */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .education-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s;
+        }
+
+        .education-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .education-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .education-institution {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .course-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .course-card.featured {
+            border: 2px solid var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color)10, var(--bg-card));
+        }
+
+        .course-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .course-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-provider {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .featured-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        /* Skills Section */
+        .skills {
+            background: var(--bg-secondary);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-card);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+                left: 0 !important;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .timeline-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .company-logo {
+                align-self: center;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <ul class="nav-links">
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#experiencia">Experiência</a></li>
+                <li><a href="#educacao">Educação</a></li>
+                <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#projects">Projetos</a></li>
+            </ul>
+            <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Matheus Antunes Laurindo</h1>
+            <p class="subtitle"> </p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>+55 21 98652-1707</span>
+                </div>
+                <div class="contact-item">
+                    <span>✉️</span>
+                    <span>mathantunes1786@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>São José, SC - Brasil</span>
+                </div>
+            </div>
+            <a href="#sobre" class="btn-primary">Conheça minha trajetória</a>
+            <a href="https://drive.google.com/file/d/1m5itj39jzf90_w8qjbwVlyYRxS1yWiao/view?usp=drive_link" class="btn-primary"> 📄 BAIXAR PDF</a>
+
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="section about">
+        <div class="container">
+            <h2 class="section-title">Sobre Mim</h2>
+            <div class="about-content">
+                <div class="profile-photo">
+                    <img src="img/profile-photo.jpg" alt="Matheus Antunes Laurindo">
+                    <div style="position: absolute; bottom: -2rem; font-size: 0.9rem; color: var(--text-secondary);">
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p>Sou estudante de Engenharia de Telecomunicações, e com experiência prática em suporte técnico, monitoramento de redes (NOC) e desenvolvimento de soluções internas. 
+                    Domino ferramentas como Zabbix, PRTG e MikroTik para infraestrutura, além de React Native, Flutter e Firebase para desenvolvimento mobile. Busco oportunidades que unam tecnologia e eficiência, seja em infraestrutura de TI, automação de processos ou criação de aplicativos escaláveis. </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experiencia" class="section">
+        <div class="container">
+            <h2 class="section-title">Experiência Profissional</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-card" onclick="showPopup('exp1')">
+                        <div class='company-logo'>
+                            <img src="img/DL22-logo.png" alt="Logo da Empresa">
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Maio 2025 – Presente</div>
+                            <div class="timeline-title">Estágio - Suporte Técnico</div>
+                            <div class="timeline-company">DL22 Tecnologia</div>
+                            <div class="timeline-preview">Desenvolvimento de ferramentas internas e integração de sistemas...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-card" onclick="showPopup('exp2')">
+                        <div class='company-logo'>
+                            <img src="img/INTERNEXA-logo.jpeg" alt="Logo da Empresa">
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Out. 2024 – Mar. 2025</div>
+                            <div class="timeline-title">Estágio - Analista NOC</div>
+                            <div class="timeline-company">MegaTelecom</div>
+                            <div class="timeline-preview">Monitoramento de infraestrutura com Zabbix, PRTG e CACTI...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-card" onclick="showPopup('exp3')">
+                        <div class='company-logo'>
+                            <img src="img/TMCO-logo.png" alt="Logo da Empresa">
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Jun. 2024 – Out. 2024</div>
+                            <div class="timeline-title">Estágio - Suporte Técnico</div>
+                            <div class="timeline-company">TMCO Consultoria</div>
+                            <div class="timeline-preview">Suporte a sistemas de telefonia IP e PBX...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-card" onclick="showPopup('exp4')">
+                        <div class='company-logo'>
+                            <img src="img/Fairmont-logo.png" alt="Logo da Empresa">
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Set. 2023 – Mar. 2024</div>
+                            <div class="timeline-title">Aprendiz - Assistente de TI</div>
+                            <div class="timeline-company">Hotel Fairmont Rio de Janeiro</div>
+                            <div class="timeline-preview">Suporte técnico em ambiente hoteleiro...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-card" onclick="showPopup('exp5')">
+                        <div class='company-logo'>
+                            <img src="img/Orizon-logo.png" alt="Logo da Empresa">
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Out. 2021 – Set. 2022</div>
+                            <div class="timeline-title">Aprendiz - Auxiliar Administrativo</div>
+                            <div class="timeline-company">Orizon</div>
+                            <div class="timeline-preview">Atividades administrativas e suporte documental...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-card" onclick="showPopup('exp6')">
+                        <div class='company-logo'>
+                            <img src="img/SD-Rio-logo.png" alt="Logo da Empresa">
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">Fev. 2021 – Ago. 2021</div>
+                            <div class="timeline-title">Estágio - Suporte Técnico</div>
+                            <div class="timeline-company">Security Door</div>
+                            <div class="timeline-preview">Suporte técnico em sistemas de segurança...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="educacao" class="section education">
+        <div class="container">
+            <h2 class="section-title">Formação Acadêmica</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-title">Engenharia de Telecomunicações</div>
+                    <div class="education-institution">Instituto Federal de Santa Catarina</div>
+                    <div class="timeline-date">2025 - Cursando</div>
+                </div>
+        
+                
+                <div class="education-card">
+                    <div class="education-title">Ensino Médio</div>
+                    <div class="education-institution">Instituto Superior de Educação do Rio de Janeiro</div>
+                    <div class="timeline-date">2019 - 2021</div>
+                </div>
+
+            </div>
+
+            <br><br><br><br><br>
+
+            <h2 class="section-title">Atividades Extracurriculares</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-title">Coordenador de Acólitos</div>
+                    <div class="education-institution">Paróquia Sagrado Coração de Jesus</div>
+                    <div class="timeline-date">Set. de 2019 - Dez. de 2024</div>
+                </div>
+        
+                
+                <div class="education-card">
+                    <div class="education-title">Social Media</div>
+                    <div class="education-institution">Academia Punk Jiu-jitsu</div>
+                    <div class="timeline-date">Trabalho Voluntário</div>
+                </div>
+
+                <div class="education-card">
+                    <div class="education-title">Atendente</div>
+                    <div class="education-institution">Quisoque Maloca do Sol</div>
+                    <div class="timeline-date">Freelancer</div>
+                </div>
+
+            </div>
+
+            <h3 style="text-align: center; margin: 3rem 0 2rem; font-size: 2rem;">Cursos & Certificações</h3>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-name">Curso de Inglês</div>
+                    <div class="course-provider">Sociedade Brasileira Cultura Inglesa</div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-name">Técnicas em Administração</div>
+                    <div class="course-provider">Instituto Brasileiro de Aprendizagem </div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-name">Pacote Office 365</div>
+                    <div class="course-provider">Escola Virtual Fundação Bradesco</div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-name">Desenvolvimento com AppSheet</div>
+                    <div class="course-provider">Udemy</div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-name">Gestão de Nuvem com OneDrive</div>
+                    <div class="course-provider">Udemy</div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-name">Fundamentos e Infraestrutura de TI</div>
+                    <div class="course-provider">Microcamp</div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-name">PHP do Zero - Criando sistemas com PHP e MySQL.</div>
+                    <div class="course-provider">Udemy</div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-name">Gerenciamento e Boas Práticas com Mikrotik RouterOS</div>
+                    <div class="course-provider">Udemy</div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-name">Criação de Apps Android/iOS/Web com Flutter</div>
+                    <div class="course-provider">Udemy</div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="habilidades" class="section skills">
+        <div class="container">
+            <h2 class="section-title">Habilidades Técnicas</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>💻 Desenvolvimento</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React Native</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Flutter</span>
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">Rust</span>
+                        <span class="skill-tag">Python</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>🌐 Redes & Infraestrutura</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Zabbix</span>
+                        <span class="skill-tag">PRTG</span>
+                        <span class="skill-tag">CACTI</span>
+                        <span class="skill-tag">MikroTik</span>
+                        <span class="skill-tag">Cisco</span>
+                        <span class="skill-tag">Huawei</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>🗄️ Banco de Dados</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">Firebase</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>🛠️ Ferramentas</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Office 365</span>
+                        <span class="skill-tag">OneDrive</span>
+                        <span class="skill-tag">AppSheet</span>
+                        <span class="skill-tag">Markdown</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="projects" class="projects">
+  <h2>🚀 Meus Projetos</h2>
+  <div class="project-cards">
+    <!-- Card 1 -->
+    <div class="project-card" onclick="openProjectModal('projeto1')">
+      <img src="img/projeto1-thumb.png" alt="Projeto 1">
+      <h3>Sistema Web X</h3>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="project-card" onclick="openProjectModal('projeto2')">
+      <img src="img/projeto2-thumb.png" alt="Projeto 2">
+      <h3>App Desktop Y</h3>
+    </div>
+  </div>
+</section>
+
+<!-- Modal dos Projetos -->
+<div id="project-modal" class="project-modal">
+  <div class="project-modal-content">
+    <span class="close" onclick="closeProjectModal()">&times;</span>
+    <img id="project-img" src="" alt="Preview Projeto">
+    <h3 id="project-title"></h3>
+    <p id="project-desc"></p>
+    <a id="project-link" href="#" target="_blank" class="btn-primary">🔗 Ver Projeto</a>
+  </div>
+</div>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Matheus Antunes Laurindo. Atualizado em 03 de Setembro de 2025.</p>
+        </div>
+    </footer>
+
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popupOverlay" onclick="closePopup()">
+        <div class="popup" onclick="event.stopPropagation()">
+            <div class="popup-header">
+                <h3 id="popupTitle"></h3>
+                <button class="popup-close" onclick="closePopup()">×</button>
+            </div>
+            <div class="popup-content" id="popupContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.textContent = '🌙';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+            }
+        }
+
+        // Experience popup data
+        const experiences = {
+            exp1: {
+                title: 'Estágio - Suporte Técnico | DL22 Tecnologia',
+                content: `
+                    <h4>Período: Maio 2025 – Presente</h4>
+                    <p><strong>Responsabilidades:</strong></p>
+                    <p>
+                    Iniciei como suporte técnico remoto no sistema de integração entre catracas e PDVs, 
+                    atuando no diagnóstico e na resolução de falhas de hardware, software e conectividade. 
+                    Além disso, era responsável pela integração de novos clientes, identificando modelos de catracas e 
+                    tipos de banco de dados, como MySQL, PostgreSQL e Firebase. 
+                    Com o tempo, ampliei minha atuação para o desenvolvimento de ferramentas internas e 
+                    produção de documentação técnica, utilizando React, JavaScript e Markdown na criação de manuais, 
+                    dashboards e sistemas de suporte que contribuíram para a otimização dos processos da equipe.
+                    </p>
+                `
+            },
+            exp2: {
+                title: 'Estágio - Analista NOC | MegaTelecom',
+                content: `
+                    <h4>Período: Out. 2024 – Mar. 2025</h4>
+                    <p><strong>Responsabilidades:</strong></p>
+                    <p>Atuei no monitoramento proativo da infraestrutura de rede utilizando ferramentas como Zabbix, 
+                        PRTG e CACTI. Realizei troubleshooting de nível 1 
+                        em equipamentos de rede (roteadores e switches) como Datacom, Huawei, Cisco e Mikrotik, 
+                        desenvolvendo habilidades em resolução de problemas e análise de logs.</p>
+                `
+            },
+            exp3: {
+                title: 'Estágio - Suporte Técnico | TMCO Consultoria',
+                content: `
+                    <h4>Período: Jun. 2024 – Out. 2024</h4>
+                    <p><strong>Responsabilidades:</strong></p>
+                    <p>Prestei suporte técnico a sistemas de telefonia IP, focando na configuração, manutenção e 
+                        resolução de problemas em equipamentos e softwares relacionados. 
+                        Trabalhei com centrais de assinantes (PBX) e Session Border Controllers (SBCs),
+                        garantindo que as chamadas fossem gerenciadas e protegidas de forma eficiente.</p>
+                `
+            },
+            exp4: {
+                title: 'Aprendiz - Assistente de TI | Hotel Fairmont Rio de Janeiro',
+                content: `
+                    <h4>Período: Set. 2023 – Mar. 2024</h4>
+                    <p><strong>Responsabilidades:</strong></p>
+                    <p>Auxiliava os usuários a resolver problemas de software e hardware; 
+                        fornecer instruções sobre como usar os sistemas de TI da empresa; 
+                        instalar e configurar novos computadores; realizar manutenção preventiva em equipamentos existentes; 
+                        lançar notas; realizar cotações; suporte a cobertura de infraestrutura de telecomunicações. </p>
+                `
+            },
+            exp5: {
+                title: 'Aprendiz - Auxiliar Administrativo | Orizon',
+                content: `
+                    <h4>Período: Out. 2021 – Set. 2022</h4>
+                    <p><strong>Responsabilidades:</strong></p>
+                    <p>Auxiliava no preenchimento de formulários, digitalização de documentos, arquivamento, 
+                       organização de arquivos físicos e eletrônicos. 
+                       Coletar informações e auxiliar na preparação de relatórios básicos, planilhas 
+                       e apresentações utilizando software de escritório, como o Microsoft Excel, Word e PowerPoint.</p>
+                `
+            },
+            exp6: {
+                title: 'Estágio - Suporte Técnico | Security Door',
+                content: `
+                    <h4>Período: Fev. 2021 – Ago. 2021</h4>
+                    <p><strong>Responsabilidades:</strong></p>
+                    <p>Receber solicitações por telefone, e-mail ou pessoalmente, diagnosticar problemas e fornecer soluções. 
+                       Auxiliar na instalação, configuração e manutenção de computadores, impressoras, câmeras, alarmes e gadget automativos.</p>
+                `
+            }
+        };
+
+        // Show popup function
+        function showPopup(expId) {
+            const experience = experiences[expId];
+            if (experience) {
+                document.getElementById('popupTitle').innerHTML = experience.title;
+                document.getElementById('popupContent').innerHTML = experience.content;
+                document.getElementById('popupOverlay').style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+        }
+
+        // Close popup function
+        function closePopup() {
+            document.getElementById('popupOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Enable scrolling again
+        }
+
+        // Close popup when pressing ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closePopup();
+            }
+        });
+
+        // Projetos
+        const projects = {
+        projeto1: {
+        title: "Sistema Web X",
+        desc: "Um sistema web para gerenciamento de tarefas, feito com React + Node.js.",
+        img: "img/projeto1.png",
+        link: "https://meuprojeto1.com"
+  },
+        projeto2: {
+        title: "App Desktop Y",
+        desc: "Aplicativo desktop para controle financeiro, feito em Python + Tkinter.",
+        img: "img/projeto2.png",
+        link: "https://github.com/seuusuario/projeto2"
+  }
+};
+
+function openProjectModal(key) {
+  const p = projects[key];
+  document.getElementById("project-title").innerText = p.title;
+  document.getElementById("project-desc").innerText = p.desc;
+  document.getElementById("project-img").src = p.img;
+  document.getElementById("project-link").href = p.link;
+  document.getElementById("project-modal").style.display = "block";
+}
+
+function closeProjectModal() {
+  document.getElementById("project-modal").style.display = "none";
+}
+
+    </script>
+</body>
+</html>
